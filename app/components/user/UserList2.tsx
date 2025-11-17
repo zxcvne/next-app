@@ -66,11 +66,33 @@ export default function UserList2() {
     });
   };
 
+  // 2. 삭제 설정
   const onRemove = (id: number) => {
     // users id 값이 파라미터의 id와 일치하지 않는 요소만 추출하여
     // 새로운 배열로 리턴
     setUsers(users.filter((user) => user.id !== id));
   };
+
+  // 3. 토글 설정
+  const onToggle = (id: number) => {
+    // 클릭한 유저의 active 값을 자신의 값과 반대로 설정
+    setUsers(
+      users.map((user) =>
+        user.id == id ? { ...user, active: !user.active } : user
+      )
+    );
+  };
+
+  // 4. 총 사용자 수 설정
+  const UserCount = () => {
+    return users.length;
+  };
+  const count = UserCount();
+  // 5. 활성 사용자 수 설정
+  const countActiveUser = () => {
+    return users.filter((user) => user.active).length;
+  };
+  const activeCount = countActiveUser();
 
   return (
     <div className="flex flex-col item-center justify-center p-4">
@@ -80,7 +102,10 @@ export default function UserList2() {
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList1 users={users} onRemove={onRemove} />
+      <UserList1 users={users} onRemove={onRemove} onToggle={onToggle} />
+      <div>
+        활성 인원수 : {activeCount} / {count} 명
+      </div>
     </div>
   );
 }
