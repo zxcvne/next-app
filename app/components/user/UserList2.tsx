@@ -66,6 +66,12 @@ export default function UserList2() {
     });
   };
 
+  const onRemove = (id: number) => {
+    // users id 값이 파라미터의 id와 일치하지 않는 요소만 추출하여
+    // 새로운 배열로 리턴
+    setUsers(users.filter((user) => user.id !== id));
+  };
+
   return (
     <div className="flex flex-col item-center justify-center p-4">
       <CreateUser
@@ -74,7 +80,7 @@ export default function UserList2() {
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList1 users={users} />
+      <UserList1 users={users} onRemove={onRemove} />
     </div>
   );
 }
